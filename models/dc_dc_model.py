@@ -15,6 +15,13 @@ Scope:
   getting a non-trivial input ripple waveform on C_in.
 - Output stage: standard buck averaged/switching model with ideal diode
   freewheeling (zero forward drop) and ideal switch.
+- Inductor non-ideality: the inductor's winding (DCR) resistance `R_L` is
+  modeled as a series resistance with the ideal inductor. This produces a
+  resistive voltage drop `iL * R_L` that subtracts from the voltage applied
+  to the output node (present during both switch-on and freewheeling
+  phases, since current always flows through the inductor winding), and it
+  also shifts the ideal duty-cycle relationship (D = Vout/Vin is no longer
+  exact once R_L > 0).
 
 States (switching model): x = [iL, vOut, vIn_cap]
     iL      - inductor current (A)
@@ -37,6 +44,7 @@ class BuckConverterParams:
     R_load: float       # load resistance [ohm]
     f_sw: float         # switching frequency [Hz]
     C_in: float = 10e-6  # input capacitor [F]
+    R_L: float = 0.0     # inductor series (DCR) resistance [ohm]
 
     @property
     def T_sw(self) -> float:
@@ -44,15 +52,34 @@ class BuckConverterParams:
 
     @property
     def D(self) -> float:
-        """Ideal (lossless) CCM duty cycle D = Vout / Vin."""
-        return duty_cycle_ccm(self.Vin, self.Vout)
+        """CCM duty cycle, D = (Vout + Iout_avg*R_L) / Vin.
+
+        Accounts for the resistive drop across the inductor's DCR (`R_L`).
+        When R_L = 0 this reduces to the ideal/lossless D = Vout / Vin.
+        """
+        Iout_avg = self.Vout / self.R_load
+        return duty_cycle_ccm(self.Vin, self.Vout, R_L=self.R_L, Iout_avg=Iout_avg)
 
 
-def duty_cycle_ccm(Vin: float, Vout: float) -> float:
-    """Ideal CCM buck duty cycle, D = Vout / Vin."""
+def duty_cycle_ccm(Vin: float, Vout: float, R_L: float = 0.0,
+                    Iout_avg: Optional[float] = None) -> float:
+    """CCM buck duty cycle.
+
+    Ideal (lossless, R_L=0): D = Vout / Vin.
+
+    With inductor DCR `R_L` > 0, the average inductor voltage over a
+    switching period must be zero in steady state:
+        D*Vin - Vout - Iout_avg*R_L = 0  =>  D = (Vout + Iout_avg*R_L) / Vin
+    `Iout_avg` (average load/inductor current) is required in that case.
+    """
     if Vin <= 0:
         raise ValueError("Vin must be > 0")
-    D = Vout / Vin
+    if R_L > 0:
+        if Iout_avg is None:
+            raise ValueError("Iout_avg is required to compute D when R_L > 0")
+        D = (Vout + Iout_avg * R_L) / Vin
+    else:
+        D = Vout / Vin
     if not (0.0 < D < 1.0):
         raise ValueError(f"Computed duty cycle D={D:.3f} is outside (0,1); "
                           f"check Vin/Vout for a buck (step-down) topology.")
@@ -89,7 +116,13 @@ def steady_state(params: BuckConverterParams, D: Optional[float] = None) -> dict
 
 
 def output_inductor_ripple_analytic(params: BuckConverterParams, D: Optional[float] = None) -> float:
-    """Peak-peak inductor current ripple: dIL = Vout*(1-D) / (L*f_sw)."""
+    """Peak-peak inductor current ripple: dIL = Vout*(1-D) / (L*f_sw).
+
+    Note: this standard formula uses Vout as the (approximate) off-time
+    voltage across the inductor; the small additional drop from R_L is
+    neglected here (it only slightly reduces the off-time inductor
+    voltage), so this remains a good estimate even when R_L > 0.
+    """
     if D is None:
         D = params.D
     return params.Vout * (1 - D) / (params.L * params.f_sw)
@@ -128,9 +161,11 @@ def switching_rhs(t: float, x: np.ndarray, params: BuckConverterParams, D: float
     if Iin_avg is None:
         Iin_avg = D * (params.Vout / params.R_load)
 
-    # Inductor: switch on -> sees (vIn_cap - vOut); switch off -> ideal diode
-    # freewheels, sees (-vOut).
-    diL_dt = (s * vIn_cap - vOut) / params.L
+    # Inductor: switch on -> sees (vIn_cap - vOut - iL*R_L); switch off ->
+    # ideal diode freewheels, sees (-vOut - iL*R_L). The DCR drop (iL*R_L)
+    # is present in both phases since current always flows through the
+    # inductor's winding resistance.
+    diL_dt = (s * vIn_cap - vOut - iL * params.R_L) / params.L
 
     # Output node: KCL at output cap / load.
     dvOut_dt = (iL - vOut / params.R_load) / params.C_out
@@ -149,7 +184,7 @@ def averaged_rhs(t: float, x: np.ndarray, params: BuckConverterParams, D: float)
     regulated to Vin on average).
     """
     iL, vOut = x
-    diL_dt = (D * params.Vin - vOut) / params.L
+    diL_dt = (D * params.Vin - vOut - iL * params.R_L) / params.L
     dvOut_dt = (iL - vOut / params.R_load) / params.C_out
     return np.array([diL_dt, dvOut_dt])
 

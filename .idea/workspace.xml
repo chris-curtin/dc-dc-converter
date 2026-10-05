@@ -7,11 +7,11 @@
     <option name="selectedModelId" value="claude-sonnet-5" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5df1f317-75ce-4f5a-91c5-a8b2788cdcad" name="Changes" comment="Creation">
+    <list default="true" id="5df1f317-75ce-4f5a-91c5-a8b2788cdcad" name="Changes" comment="Updated with XER10 12V/3V3 paramters">
       <change beforePath="$PROJECT_DIR$/.idea/copilotDiffState.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/copilotDiffState.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dc-dc.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dc-dc.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dc.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/dc.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/dc_dc_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/dc_dc_model.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,23 +52,23 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0" />
-      <entry key="S2" value="1.0000000000012463" />
-      <entry key="S5" value="1.0000185362786322" />
-      <entry key="S10" value="1.00534628775144" />
-      <entry key="S30" value="1.3313499309327947" />
-      <entry key="S60" value="2.0886202861117242" />
-      <entry key="M2" value="3.0604113769838186" />
-      <entry key="M5" value="4.316805236366087" />
-      <entry key="M10" value="5.515383057024325" />
-      <entry key="M15" value="6.263892796157644" />
-      <entry key="M30" value="7.359667306856682" />
-      <entry key="H1" value="8.095588004162892" />
-      <entry key="H2" value="8.524282228555816" />
-      <entry key="H4" value="8.755925262045633" />
-      <entry key="D1" value="8.958427278159665" />
-      <entry key="W1" value="8.994038749459357" />
+      <entry key="MS100" value="1.005262784155921" />
+      <entry key="MS500" value="1.3936988957732923" />
+      <entry key="S2" value="2.4882641528213276" />
+      <entry key="S5" value="4.0005020644984715" />
+      <entry key="S10" value="5.660915270179724" />
+      <entry key="S30" value="9.459613754791" />
+      <entry key="S60" value="12.116421951192946" />
+      <entry key="M2" value="14.55084072886099" />
+      <entry key="M5" value="17.075055474392904" />
+      <entry key="M10" value="18.799492785182196" />
+      <entry key="M15" value="19.74933144839063" />
+      <entry key="M30" value="21.075634630946926" />
+      <entry key="H1" value="21.944678071575822" />
+      <entry key="H2" value="22.446246093556386" />
+      <entry key="H4" value="22.7162108353147" />
+      <entry key="D1" value="22.95170682576333" />
+      <entry key="W1" value="22.993076138843676" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -90,23 +90,23 @@
       <entry key="W1" value="0.0" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.030395467106633916" />
-      <entry key="MS500" value="0.4972350843366072" />
-      <entry key="S2" value="0.8397314929451981" />
-      <entry key="S5" value="0.9325330964931117" />
-      <entry key="S10" value="0.9708237219598113" />
-      <entry key="S30" value="1.3123318237513717" />
-      <entry key="S60" value="2.066613781128903" />
-      <entry key="M2" value="3.0399666306772914" />
-      <entry key="M5" value="4.304252186178147" />
-      <entry key="M10" value="5.507925620005022" />
-      <entry key="M15" value="6.258569820540354" />
-      <entry key="M30" value="7.3567902507687135" />
-      <entry key="H1" value="8.094085153448177" />
-      <entry key="H2" value="8.523513067961565" />
-      <entry key="H4" value="8.755536014090017" />
-      <entry key="D1" value="8.95836173396168" />
-      <entry key="W1" value="8.994029369318502" />
+      <entry key="MS100" value="0.964312518320021" />
+      <entry key="MS500" value="1.3820949236609552" />
+      <entry key="S2" value="2.482870382110428" />
+      <entry key="S5" value="3.9968828663508615" />
+      <entry key="S10" value="5.657674592477876" />
+      <entry key="S30" value="9.453010106223685" />
+      <entry key="S60" value="12.104097135566704" />
+      <entry key="M2" value="14.53558897279323" />
+      <entry key="M5" value="17.063794031085045" />
+      <entry key="M10" value="18.79237057298102" />
+      <entry key="M15" value="19.744140652091254" />
+      <entry key="M30" value="21.072770069036387" />
+      <entry key="H1" value="21.943166155501554" />
+      <entry key="H2" value="22.44546827938782" />
+      <entry key="H4" value="22.71581618942667" />
+      <entry key="D1" value="22.95164022943586" />
+      <entry key="W1" value="22.993066604614583" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -176,7 +176,8 @@
       <workItem from="1791036380931" duration="1120000" />
       <workItem from="1791192267547" duration="3206000" />
       <workItem from="1791195672540" duration="2462000" />
-      <workItem from="1791198273951" duration="599000" />
+      <workItem from="1791198273951" duration="1515000" />
+      <workItem from="1791202538613" duration="707000" />
     </task>
     <task id="LOCAL-00001" summary="Creation">
       <option name="closed" value="true" />
@@ -194,7 +195,15 @@
       <option name="project" value="LOCAL" />
       <updated>1791033336909</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Updated with XER10 12V/3V3 paramters">
+      <option name="closed" value="true" />
+      <created>1791201792189</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1791201792189</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -213,6 +222,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Creation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Creation" />
+    <MESSAGE value="Updated with XER10 12V/3V3 paramters" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated with XER10 12V/3V3 paramters" />
   </component>
 </project>
