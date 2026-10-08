@@ -18,9 +18,14 @@ DCM, is intentionally not modeled/deferred).
     optional closed-loop Vout regulation.
   - `check_ccm` helper to flag if a simulation run dipped into DCM territory
     (not modeled, so such results are not physically valid there).
+  - Optional inductor winding resistance (`R_L`, DCR) modeled as a series
+    resistance, which adds a resistive drop to both ODE models and shifts
+    the duty-cycle formula away from the ideal `D = Vout / Vin`.
 - `dc.ipynb` — notebook that defines converter parameters, runs the
-  open-loop switching simulation, compares simulated vs. analytic ripple, and
-  (optionally) demonstrates closed-loop PI regulation under a load step.
+  open-loop switching simulation, compares simulated vs. analytic ripple,
+  (optionally) runs the duty-cycle-averaged model for a quick ripple-free
+  view, and (optionally) demonstrates closed-loop PI regulation under a load
+  step.
 
 ## Modeling assumptions
 
@@ -31,10 +36,15 @@ DCM, is intentionally not modeled/deferred).
   (`Iin_avg = D * Iout_avg`); the input capacitor `C_in` absorbs the
   pulsating (AC) component drawn by the switch. This is the standard
   assumption used in practice to estimate/size input capacitor ripple.
-- **CCM only**: duty cycle is computed as the ideal `D = Vout / Vin`, and the
-  inductor is assumed large enough (relative to load/frequency) that current
-  never reaches zero. Use `check_ccm()` on simulation results to verify this
-  holds for your chosen parameters.
+- **CCM only**: the inductor is assumed large enough (relative to
+  load/frequency) that current never reaches zero. Use `check_ccm()` on
+  simulation results to verify this holds for your chosen parameters.
+- **Duty cycle**: `D = Vout / Vin` when the inductor is ideal (`R_L = 0`,
+  the default). If a nonzero inductor DCR `R_L` is set, `D` instead accounts
+  for the resistive drop: `D = (Vout + Iout_avg·R_L) / Vin`.
+- **Inductor DCR (`R_L`)**: an optional series winding resistance on the
+  inductor. It subtracts `iL·R_L` from the voltage applied to the output
+  node in both the switch-on and freewheeling phases.
 
 ## Ripple formulas used
 

@@ -7,11 +7,10 @@
     <option name="selectedModelId" value="claude-sonnet-5" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5df1f317-75ce-4f5a-91c5-a8b2788cdcad" name="Changes" comment="Updated with XER10 12V/3V3 paramters">
+    <list default="true" id="5df1f317-75ce-4f5a-91c5-a8b2788cdcad" name="Changes" comment="Added the resistive losses for the inductor">
       <change beforePath="$PROJECT_DIR$/.idea/copilotDiffState.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/copilotDiffState.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dc.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/dc.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/dc_dc_model.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/dc_dc_model.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,23 +51,23 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.005262784155921" />
-      <entry key="MS500" value="1.3936988957732923" />
-      <entry key="S2" value="2.4882641528213276" />
-      <entry key="S5" value="4.0005020644984715" />
-      <entry key="S10" value="5.660915270179724" />
-      <entry key="S30" value="9.459613754791" />
-      <entry key="S60" value="12.116421951192946" />
-      <entry key="M2" value="14.55084072886099" />
-      <entry key="M5" value="17.075055474392904" />
-      <entry key="M10" value="18.799492785182196" />
-      <entry key="M15" value="19.74933144839063" />
-      <entry key="M30" value="21.075634630946926" />
-      <entry key="H1" value="21.944678071575822" />
-      <entry key="H2" value="22.446246093556386" />
-      <entry key="H4" value="22.7162108353147" />
-      <entry key="D1" value="22.95170682576333" />
-      <entry key="W1" value="22.993076138843676" />
+      <entry key="MS100" value="1.0013715281989628" />
+      <entry key="MS500" value="1.2675721746066562" />
+      <entry key="S2" value="1.7193700081751682" />
+      <entry key="S5" value="1.921320256765095" />
+      <entry key="S10" value="2.2353907291954522" />
+      <entry key="S30" value="3.0397474963165947" />
+      <entry key="S60" value="3.4460757309816765" />
+      <entry key="M2" value="3.701566749412529" />
+      <entry key="M5" value="3.9333581204352748" />
+      <entry key="M10" value="4.992007656149984" />
+      <entry key="M15" value="6.804607358193015" />
+      <entry key="M30" value="12.978363934704223" />
+      <entry key="H1" value="23.55267110252797" />
+      <entry key="H2" value="35.47290548102454" />
+      <entry key="H4" value="44.902850239818086" />
+      <entry key="D1" value="55.50225091228218" />
+      <entry key="W1" value="57.6345291190996" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -90,23 +89,23 @@
       <entry key="W1" value="0.0" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="0.964312518320021" />
-      <entry key="MS500" value="1.3820949236609552" />
-      <entry key="S2" value="2.482870382110428" />
-      <entry key="S5" value="3.9968828663508615" />
-      <entry key="S10" value="5.657674592477876" />
-      <entry key="S30" value="9.453010106223685" />
-      <entry key="S60" value="12.104097135566704" />
-      <entry key="M2" value="14.53558897279323" />
-      <entry key="M5" value="17.063794031085045" />
-      <entry key="M10" value="18.79237057298102" />
-      <entry key="M15" value="19.744140652091254" />
-      <entry key="M30" value="21.072770069036387" />
-      <entry key="H1" value="21.943166155501554" />
-      <entry key="H2" value="22.44546827938782" />
-      <entry key="H4" value="22.71581618942667" />
-      <entry key="D1" value="22.95164022943586" />
-      <entry key="W1" value="22.993066604614583" />
+      <entry key="MS100" value="0.06934809350672767" />
+      <entry key="MS500" value="0.6036108903872853" />
+      <entry key="S2" value="1.2373039272884983" />
+      <entry key="S5" value="1.6517672664874035" />
+      <entry key="S10" value="2.062540680448712" />
+      <entry key="S30" value="2.953688326518872" />
+      <entry key="S60" value="3.39591482605582" />
+      <entry key="M2" value="3.6742365922427127" />
+      <entry key="M5" value="3.9215646061280673" />
+      <entry key="M10" value="4.983874547269687" />
+      <entry key="M15" value="6.796704495779055" />
+      <entry key="M30" value="12.971042643283726" />
+      <entry key="H1" value="23.547120713392907" />
+      <entry key="H2" value="35.4693532593227" />
+      <entry key="H4" value="44.900814249648946" />
+      <entry key="D1" value="55.50186761072806" />
+      <entry key="W1" value="57.63447316080864" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -177,7 +176,8 @@
       <workItem from="1791192267547" duration="3206000" />
       <workItem from="1791195672540" duration="2462000" />
       <workItem from="1791198273951" duration="1515000" />
-      <workItem from="1791202538613" duration="707000" />
+      <workItem from="1791202538613" duration="5370000" />
+      <workItem from="1791290049373" duration="1247000" />
     </task>
     <task id="LOCAL-00001" summary="Creation">
       <option name="closed" value="true" />
@@ -203,7 +203,15 @@
       <option name="project" value="LOCAL" />
       <updated>1791201792189</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Added the resistive losses for the inductor">
+      <option name="closed" value="true" />
+      <created>1791203570039</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1791203570039</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -223,6 +231,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Creation" />
     <MESSAGE value="Updated with XER10 12V/3V3 paramters" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated with XER10 12V/3V3 paramters" />
+    <MESSAGE value="Added the resistive losses for the inductor" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added the resistive losses for the inductor" />
   </component>
 </project>
